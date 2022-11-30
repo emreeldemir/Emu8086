@@ -2,10 +2,93 @@
 
 ORG 100H
 
+MOV AX,num1Low
+MOV BX,num2Low
+
+MUL BX
+
+MOV P1L,AX
+MOV P1H,DX
+
+MOV AX,num1High
+
+MUL BX
+
+MOV P2L,AX
+MOV P2H,DX
+
+MOV AX,num1Low
+MOV BX,num2High
+
+MUL BX
+
+MOV P3L,AX
+MOV P3H,DX
+
+MOV AX,num1High
+
+MUL BX
+
+MOV P4L,AX
+MOV P4H,DX
+
+MOV AX,P1L
+MOV R1,AX
+MOV BX,0000h
+MOV AX,P1H   
+ADD AX,P2L
+
+JNC Skip 
+INC BX  
+
+Skip: ADD AX,P3L
+JNC Skip1
+INC BX
+
+Skip1: MOV R2,AX
+MOV CX,0000h
+MOV AX,P2H
+ADD AX,P3H
+JNC Skip2
+INC CX  
+
+Skip2: ADD AX,P4L
+JNC Skip3
+INC CX 
+
+Skip3: ADD AX,BX
+JNC Skip4
+INC CX 
+
+Skip4: MOV R3,AX
+MOV AX,P4H
+ADD AX,CX
+MOV R4,AX
+
 
 
 RET
 
 
+num1High DW 1122H
+num1Low DW 3344H
 
+num2High DW 5566H
+num2Low DW 7788H
 
+P1L DW ?
+P1H DW ?
+
+P2L DW ?
+P2H DW ?
+
+P3L DW ?
+P3H DW ?
+
+P4L DW ?
+P4H DW ?
+
+R1 DW ?
+R2 DW ?
+R3 DW ?
+R4 DW ?
